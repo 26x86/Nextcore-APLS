@@ -1,0 +1,80 @@
+{
+  "schema": "26x86.repository-files/1",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 30,
+      "sha256": "9319637ee361d94b77df3b8f63b650075d6933135e97a0e9b7fdf4240fe7b95c"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 285,
+      "sha256": "90314a2c96a3233a2b662b831c4b4ae2768ecddccab6a900a49385641f3581c3"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 22,
+      "sha256": "2a58829f54c2e8f11df2f4f4e94b1c06962eee8a1bd17bab47a9f2221eac95c9"
+    },
+    {
+      "path": "Cargo.toml",
+      "bytes": 390,
+      "sha256": "227262c06df48b9efb58a98ed499a4edc701ce1bd2285a153c68913356fe31c8"
+    },
+    {
+      "path": "examples/run_host.rs",
+      "bytes": 914,
+      "sha256": "cb821b3ff001ae627e85f4e62800842330923c7e746d2ead51f2ebcd0db78e98"
+    },
+    {
+      "path": "IMPLEMENTATION.md",
+      "bytes": 6069,
+      "sha256": "6ee87162106a60e16f78d2287a6ab663f8785303b08c6fde08f90b94c02d2ecd"
+    },
+    {
+      "path": "LICENSE.txt",
+      "bytes": 1865,
+      "sha256": "64d8c31222df29cfd8327944815b8d6b3c202a45540d49524a4617f50825a5c4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 407,
+      "sha256": "671b4d603e74f766e79aab6be873813353e7a3355d1d65f014597ce3ddef90c2"
+    },
+    {
+      "path": "src/guest.rs",
+      "bytes": 13397,
+      "sha256": "d42f2766d7c6c7679d87a97dcd58bea112da01cc523bfeaeb28c689181a6a16a"
+    },
+    {
+      "path": "src/lib.rs",
+      "bytes": 419,
+      "sha256": "6a7435597d3e55166795632a8d4514136da8695f840c946492f8c58465f38ad2"
+    },
+    {
+      "path": "src/mode.rs",
+      "bytes": 2314,
+      "sha256": "0fa264c23e3835987d52e469c10515173afcb72df83b805aeb5e38dfa845b0e8"
+    },
+    {
+      "path": "src/runner.rs",
+      "bytes": 59834,
+      "sha256": "7149a7d1c05292fb8d0914d894aaf3e8b81536962d806fea1524b0d9b08348d7"
+    },
+    {
+      "path": "src/sgpu.rs",
+      "bytes": 21040,
+      "sha256": "bb4138b1f3d0ca4a1d59929bc048acc39cf8e7c1c8e126cb0eb9a40643728205"
+    },
+    {
+      "path": "src/vf_abi.rs",
+      "bytes": 10042,
+      "sha256": "6367ae2610aeabf4e18f60e9b97d39363571a51bccd701e41525310f13de91ff"
+    },
+    {
+      "path": "src/vf_policy.rs",
+      "bytes": 13778,
+      "sha256": "a6379880b400b79c1a28d1dc5a03fcdeb2dc0a03e84f18ee86cab93e2f1290f1"
+    }
+  ]
+}
