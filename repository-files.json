@@ -37,6 +37,11 @@
       "sha256": "db52a9e39b63ffc77ef008861439f299f07e2bc1e9f88380a41b42830d7ff122"
     },
     {
+      "path": "SGPU_TRANSPORT.md",
+      "bytes": 3369,
+      "sha256": "de7fb89b61d4918a4a6925f2ead69f362da97ca92b1bbe42d875ead98da6b9bf"
+    },
+    {
       "path": "examples/run_host.rs",
       "bytes": 914,
       "sha256": "cb821b3ff001ae627e85f4e62800842330923c7e746d2ead51f2ebcd0db78e98"
@@ -44,7 +49,7 @@
     {
       "path": "repository.json",
       "bytes": 1520,
-      "sha256": "8f53d72f833b488c2b9407e4fbb9bb5a1a67919770771f020e14d0ad5b0966d9"
+      "sha256": "bef8c89b2b53c3dcc581fdeae763e5f7516d0bb4e2b6d1ec1d955e7f6bb704e7"
     },
     {
       "path": "src/guest.rs",
@@ -68,8 +73,8 @@
     },
     {
       "path": "src/sgpu.rs",
-      "bytes": 18141,
-      "sha256": "8c01749d3b3ea7a401722f12c5fff9f1d9093742eb6df3be6bfef210b6e49b6a"
+      "bytes": 27779,
+      "sha256": "a9217f3bb3374b8303073b08ef063c8a37103659aaaf1080a7ad1f560845b905"
     },
     {
       "path": "src/vf_abi.rs",

@@ -3,6 +3,10 @@ use std::collections::HashMap;
 use thiserror::Error;
 
 use nextcore_gpu::canonical_spec::{GpuCapabilities, GpuVendor, MetalVersion};
+use nextcore_gpu::sgpu_command::{SgpuWireError, SGPU_MAX_COMMANDS};
+use nextcore_gpu::sgpu_compute::{
+    SGPU_MAX_RESOURCES, SGPU_MAX_RESOURCE_BYTES, SGPU_MAX_TOTAL_RESOURCE_BYTES,
+};
 use nextcore_gpu::virtual_device::{
     CommandBuffer, GpuCommand, VirtualMetalDevice,
 };
@@ -10,7 +14,7 @@ use nextcore_gpu::virtual_device::{
 use crate::vf_abi::{
     VfMsgHeader, VF_FAMILY_SGPU, VF_MSG_BYTES, VF_SGPU_CREATE_RESOURCE,
     VF_SGPU_DESTROY_RESOURCE, VF_SGPU_PRESENT, VF_SGPU_QUERY_CAPS,
-    VF_SGPU_SUBMIT_COMMAND_LIST, VfError,
+    VF_SGPU_SUBMIT_COMMAND_LIST, VF_PAYLOAD_MAX, VfError,
 };
 
 /// Golden Gate (macOS 27) graphics service-cell bridge. SGPU family requests
@@ -30,6 +34,12 @@ pub enum SgpuError {
     Vf(#[from] VfError),
     #[error("payload decode error")]
     Payload,
+    #[error("SGPU resource or transfer allocation limit exceeded")]
+    ResourceLimit,
+}
+
+impl From<SgpuWireError> for SgpuError {
+    fn from(_: SgpuWireError) -> Self { Self::Payload }
 }
 
 pub type Result<T> = core::result::Result<T, SgpuError>;
@@ -102,40 +112,62 @@ pub struct SgpuFrame {
 }
 
 impl SgpuFrame {
+    /// Legacy trusted-frame encoder. Use try_to_wire for unchecked input.
+    /// Panics when a caller constructs an invalid frame.
     pub fn to_wire(&self) -> Vec<u8> {
-        let mut out = self.header.encode().to_vec();
-        // Padding to message_bytes keeps the wire format fixed-length for a
-        // request id; the payload region starts right after the header.
-        let total = (self.header.message_bytes as usize).max(VF_MSG_BYTES as usize);
+        self.try_to_wire().expect("invalid SGPU frame; use try_to_wire for unchecked input")
+    }
+
+    /// Validate before any allocation or copy; no truncation or silent omission.
+    pub fn try_to_wire(&self) -> Result<Vec<u8>> {
+        self.validate()?;
+        let (total, range) = frame_layout(&self.header)?;
+        let mut out = Vec::new();
+        out.try_reserve_exact(total).map_err(|_| SgpuError::ResourceLimit)?;
         out.resize(total, 0);
-        if !self.payload.is_empty() {
-            // payload_offset is relative to the end of the 64-byte header.
-            let start = (VF_MSG_BYTES as usize) + self.header.payload_offset as usize;
-            let end = start + self.payload.len();
-            if end <= out.len() {
-                out[start..end].copy_from_slice(&self.payload);
-            }
-        }
-        out
+        out[..VF_MSG_BYTES as usize].copy_from_slice(&self.header.encode());
+        out[range].copy_from_slice(&self.payload);
+        Ok(out)
     }
 
     pub fn from_wire(bytes: &[u8]) -> Result<Self> {
-        if bytes.len() < VF_MSG_BYTES as usize {
-            return Err(SgpuError::Payload);
-        }
-        let header = VfMsgHeader::decode(&bytes[..VF_MSG_BYTES as usize])
-            .map_err(|e| SgpuError::Vf(e))?;
-        header.validate_shape()?;
-        let payload_end_rel = header.payload_end().map_err(|e| SgpuError::Vf(e))?;
-        let start = (VF_MSG_BYTES as usize) + header.payload_offset as usize;
-        let end = (VF_MSG_BYTES as usize) + payload_end_rel as usize;
-        let payload = if end > start && end <= bytes.len() {
-            bytes[start..end].to_vec()
-        } else {
-            Vec::new()
-        };
-        Ok(SgpuFrame { header, payload })
+        let raw_header = bytes.get(..VF_MSG_BYTES as usize).ok_or(SgpuError::Payload)?;
+        let header = VfMsgHeader::decode(raw_header)?;
+        let (total, range) = frame_layout(&header)?;
+        if bytes.len() != total { return Err(SgpuError::Payload); }
+        let source = bytes.get(range).ok_or(SgpuError::Payload)?;
+        let mut payload = Vec::new();
+        payload.try_reserve_exact(source.len()).map_err(|_| SgpuError::ResourceLimit)?;
+        payload.extend_from_slice(source);
+        Ok(Self { header, payload })
     }
+
+    /// Applies equally to decoded frames and caller-constructed values.
+    pub fn validate(&self) -> Result<()> {
+        let (_, range) = frame_layout(&self.header)?;
+        if self.payload.len() != range.len() { return Err(SgpuError::Payload); }
+        Ok(())
+    }
+}
+
+fn frame_layout(header: &VfMsgHeader) -> Result<(usize, std::ops::Range<usize>)> {
+    header.validate_shape()?;
+    if header.family != VF_FAMILY_SGPU {
+        return Err(SgpuError::Vf(VfError::Eabi("not an SGPU family frame")));
+    }
+    // This is APLS's bounded inline body, including its padding. VSK's
+    // separately granted payload transport remains a different boundary.
+    if u64::from(header.message_bytes) > u64::from(VF_MSG_BYTES) + u64::from(VF_PAYLOAD_MAX) {
+        return Err(SgpuError::Vf(VfError::Erange));
+    }
+    let payload_end = header.payload_end()?;
+    let start = u64::from(VF_MSG_BYTES).checked_add(header.payload_offset).ok_or(VfError::Erange)?;
+    let end = u64::from(VF_MSG_BYTES).checked_add(payload_end).ok_or(VfError::Erange)?;
+    let total = usize::try_from(header.message_bytes).map_err(|_| VfError::Erange)?;
+    let start = usize::try_from(start).map_err(|_| VfError::Erange)?;
+    let end = usize::try_from(end).map_err(|_| VfError::Erange)?;
+    if end > total { return Err(SgpuError::Payload); }
+    Ok((total, start..end))
 }
 
 /// SGPU service-cell session translating to the Nextcore GPU backend.
@@ -171,13 +203,21 @@ impl SgpuSession {
         if size == 0 {
             return Err(SgpuError::Payload);
         }
+        usize::try_from(size).map_err(|_| SgpuError::ResourceLimit)?;
+        if size > SGPU_MAX_RESOURCE_BYTES || self.resources.len() >= SGPU_MAX_RESOURCES {
+            return Err(SgpuError::ResourceLimit);
+        }
+        let total = self.resources.values().try_fold(size, |total, resource|
+            total.checked_add(resource.size)).ok_or(SgpuError::ResourceLimit)?;
+        if total > SGPU_MAX_TOTAL_RESOURCE_BYTES { return Err(SgpuError::ResourceLimit); }
+        let next_id = self.next_resource_id.checked_add(1).ok_or(SgpuError::ResourceLimit)?;
         let gpu = self.device.allocate_buffer(size);
         let res = SgpuResource {
             sgp_handle: self.next_resource_id,
             gpu_handle: gpu.handle,
             size: gpu.size,
         };
-        self.next_resource_id += 1;
+        self.next_resource_id = next_id;
         self.resources.insert(res.sgp_handle, res.clone());
         Ok(res)
     }
@@ -193,6 +233,7 @@ impl SgpuSession {
     }
 
     pub fn submit(&mut self, list: &SgpuCommandList) -> Result<usize> {
+        if list.cmds.len() > SGPU_MAX_COMMANDS { return Err(SgpuError::Payload); }
         let mut gpu_cmds = Vec::with_capacity(list.cmds.len());
         for cmd in &list.cmds {
             match cmd {
@@ -231,9 +272,7 @@ impl SgpuSession {
     /// frame. This is the transport-level bridge: envelope decode → opcode
     /// dispatch → backend execution → response envelope.
     pub fn dispatch(&mut self, frame: &SgpuFrame) -> Result<SgpuFrame> {
-        if frame.header.family != VF_FAMILY_SGPU {
-            return Err(SgpuError::Vf(VfError::Eabi("not an SGPU family frame")));
-        }
+        frame.validate()?;
 
         let resp = |opcode: u16, request_id: u64, payload: Vec<u8>| -> SgpuFrame {
             let mut header = VfMsgHeader::new(VF_FAMILY_SGPU, opcode);
@@ -246,11 +285,12 @@ impl SgpuSession {
 
         match frame.header.opcode {
             VF_SGPU_QUERY_CAPS => {
+                if !frame.payload.is_empty() { return Err(SgpuError::Payload); }
                 let caps = self.query_caps();
                 Ok(resp(VF_SGPU_QUERY_CAPS, frame.header.request_id, caps.encode().to_vec()))
             }
             VF_SGPU_CREATE_RESOURCE => {
-                if frame.payload.len() < 8 {
+                if frame.payload.len() != 8 {
                     return Err(SgpuError::Payload);
                 }
                 let size = u64::from_le_bytes(frame.payload[0..8].try_into().unwrap());
@@ -258,7 +298,7 @@ impl SgpuSession {
                 Ok(resp(VF_SGPU_CREATE_RESOURCE, frame.header.request_id, res.sgp_handle.to_le_bytes().to_vec()))
             }
             VF_SGPU_DESTROY_RESOURCE => {
-                if frame.payload.len() < 8 {
+                if frame.payload.len() != 8 {
                     return Err(SgpuError::Payload);
                 }
                 let handle = u64::from_le_bytes(frame.payload[0..8].try_into().unwrap());
@@ -271,7 +311,7 @@ impl SgpuSession {
                 Ok(resp(VF_SGPU_SUBMIT_COMMAND_LIST, frame.header.request_id, (completed as u32).to_le_bytes().to_vec()))
             }
             VF_SGPU_PRESENT => {
-                if frame.payload.len() < 8 {
+                if frame.payload.len() != 8 {
                     return Err(SgpuError::Payload);
                 }
                 let res = u64::from_le_bytes(frame.payload[0..8].try_into().unwrap());
@@ -290,6 +330,161 @@ mod tests {
 
     fn software_caps() -> GpuCapabilities {
         GpuCapabilities::software_fallback(GpuVendor::AMD, 4 << 20)
+    }
+
+    fn request(opcode: u16, payload: Vec<u8>) -> SgpuFrame {
+        let mut header = VfMsgHeader::new(VF_FAMILY_SGPU, opcode);
+        header.payload_bytes = payload.len() as u32;
+        header.message_bytes = VF_MSG_BYTES + header.payload_bytes;
+        SgpuFrame { header, payload }
+    }
+
+    #[test]
+    fn shared_codec_errors_propagate_into_legacy_result_alias() {
+        fn parse_question(bytes: &[u8]) -> Result<SgpuCommandList> {
+            Ok(SgpuCommandList::decode(bytes)?)
+        }
+        fn parse_direct(bytes: &[u8]) -> Result<SgpuCommandList> {
+            SgpuCommandList::decode(bytes).map_err(Into::into)
+        }
+        assert!(parse_question(&[0; 4]).unwrap().cmds.is_empty());
+        assert!(parse_direct(&[0; 4]).unwrap().cmds.is_empty());
+        assert!(matches!(parse_question(&u32::MAX.to_le_bytes()), Err(SgpuError::Payload)));
+        assert!(matches!(parse_direct(&[0; 3]), Err(SgpuError::Payload)));
+    }
+
+    #[test]
+    fn inline_frame_roundtrip_preserves_header_and_payload_with_padding() {
+        let mut frame = request(VF_SGPU_CREATE_RESOURCE, 256u64.to_le_bytes().to_vec());
+        frame.header.payload_offset = 3;
+        frame.header.message_bytes += 8;
+        frame.header.request_id = 0xfedc_ba98_7654_3210;
+        frame.header.object = 0x1234_5678_0000_0001;
+        frame.header.payload_grant = 0x8877_6655_4433_2211;
+        frame.header.flags = 0x1020_3040;
+        frame.header.reserved0 = 0x0102_0304_0506_0708;
+        let wire = frame.try_to_wire().unwrap();
+        assert_eq!(wire.len(), 80);
+        assert_eq!(&wire[64..67], &[0; 3]);
+        assert_eq!(&wire[75..], &[0; 5]);
+        let decoded = SgpuFrame::from_wire(&wire).unwrap();
+        assert_eq!(decoded.header.encode(), frame.header.encode());
+        assert_eq!(decoded.payload, frame.payload);
+        assert_eq!(decoded.to_wire(), wire);
+    }
+
+    #[test]
+    fn inline_frame_rejects_every_truncation_and_extra_transfer_bytes() {
+        let frame = request(VF_SGPU_CREATE_RESOURCE, 8u64.to_le_bytes().to_vec());
+        let wire = frame.try_to_wire().unwrap();
+        for length in 0..wire.len() {
+            assert!(SgpuFrame::from_wire(&wire[..length]).is_err(), "accepted length {length}");
+        }
+        let mut trailing = wire.clone();
+        trailing.push(0);
+        assert!(SgpuFrame::from_wire(&trailing).is_err());
+        for declared in [64u32, 71, 73, u32::MAX] {
+            let mut bad = wire.clone();
+            bad[8..12].copy_from_slice(&declared.to_le_bytes());
+            assert!(SgpuFrame::from_wire(&bad).is_err());
+        }
+        // Previously this query was accepted with its missing payload erased.
+        let mut query = VfMsgHeader::new(VF_FAMILY_SGPU, VF_SGPU_QUERY_CAPS);
+        query.message_bytes = 72;
+        query.payload_bytes = 8;
+        assert!(SgpuFrame::from_wire(&query.encode()).is_err());
+    }
+
+    #[test]
+    fn inline_frame_checks_overflow_limits_and_typed_payload_consistency() {
+        let valid = request(VF_SGPU_CREATE_RESOURCE, 8u64.to_le_bytes().to_vec());
+        for offset in [u64::MAX, u64::MAX - 3, 1u64 << 32] {
+            let mut bad = valid.clone();
+            bad.header.payload_offset = offset;
+            assert!(bad.try_to_wire().is_err());
+            assert!(SgpuFrame::from_wire(&bad.header.encode()).is_err());
+        }
+        let mut bad = valid.clone();
+        bad.header.message_bytes = VF_MSG_BYTES + VF_PAYLOAD_MAX + 1;
+        assert!(bad.try_to_wire().is_err());
+        bad = valid.clone();
+        bad.header.payload_bytes = VF_PAYLOAD_MAX + 1;
+        assert!(bad.try_to_wire().is_err());
+        bad = valid.clone();
+        bad.payload.push(0);
+        assert!(bad.try_to_wire().is_err());
+        bad = valid.clone();
+        bad.header.magic = 0;
+        assert!(bad.try_to_wire().is_err());
+        bad = valid;
+        bad.header.family = crate::vf_abi::VF_FAMILY_ROOT;
+        assert!(bad.try_to_wire().is_err());
+    }
+
+    #[test]
+    fn dispatch_validates_direct_frames_before_resource_mutation() {
+        let mut session = SgpuSession::new(software_caps());
+        let mut bad = request(VF_SGPU_CREATE_RESOURCE, 8u64.to_le_bytes().to_vec());
+        bad.header.payload_bytes = 0;
+        assert!(session.dispatch(&bad).is_err());
+        bad.header.payload_bytes = 8;
+        bad.header.message_bytes = 64;
+        assert!(session.dispatch(&bad).is_err());
+        let resource = session.create_resource(8).unwrap();
+        assert_eq!(resource.sgp_handle, 1);
+        assert_eq!(resource.gpu_handle, 1);
+    }
+
+    #[test]
+    fn request_opcodes_require_exact_payload_lengths() {
+        let mut session = SgpuSession::new(software_caps());
+        let resource = session.create_resource(8).unwrap();
+        for opcode in [VF_SGPU_CREATE_RESOURCE, VF_SGPU_DESTROY_RESOURCE, VF_SGPU_PRESENT] {
+            for length in [7, 9] {
+                let mut payload = resource.sgp_handle.to_le_bytes().to_vec();
+                payload.resize(length, 0);
+                assert!(matches!(session.dispatch(&request(opcode, payload)), Err(SgpuError::Payload)));
+            }
+        }
+        assert!(matches!(session.dispatch(&request(VF_SGPU_QUERY_CAPS, vec![0])), Err(SgpuError::Payload)));
+        assert_eq!(session.gpu_handle(resource.sgp_handle).unwrap(), resource.gpu_handle);
+    }
+
+    #[test]
+    fn oversized_resource_requests_fail_without_entering_allocator() {
+        let mut session = SgpuSession::new(software_caps());
+        for size in [SGPU_MAX_RESOURCE_BYTES + 1, 1u64 << 32, u64::MAX] {
+            let wire = request(VF_SGPU_CREATE_RESOURCE, size.to_le_bytes().to_vec()).try_to_wire().unwrap();
+            let decoded = SgpuFrame::from_wire(&wire).unwrap();
+            assert!(matches!(session.dispatch(&decoded), Err(SgpuError::ResourceLimit)));
+        }
+        assert!(matches!(session.create_resource(0), Err(SgpuError::Payload)));
+        let resource = session.create_resource(4).unwrap();
+        assert_eq!(resource.sgp_handle, 1);
+        assert_eq!(resource.gpu_handle, 1);
+    }
+
+    #[test]
+    fn resource_count_budget_recovers_after_destroy() {
+        let mut session = SgpuSession::new(software_caps());
+        let resources: Vec<_> = (0..SGPU_MAX_RESOURCES).map(|_| session.create_resource(4).unwrap()).collect();
+        assert!(matches!(session.create_resource(4), Err(SgpuError::ResourceLimit)));
+        session.destroy_resource(resources[0].sgp_handle).unwrap();
+        assert!(session.gpu_handle(resources[0].sgp_handle).is_err());
+        assert!(session.device.memory.read(resources[0].gpu_handle, 0, 1).is_err());
+        let replacement = session.create_resource(4).unwrap();
+        assert_eq!(replacement.sgp_handle, SGPU_MAX_RESOURCES as u64 + 1);
+    }
+
+    #[test]
+    fn resource_byte_budget_recovers_after_destroy() {
+        let mut session = SgpuSession::new(software_caps());
+        let count = SGPU_MAX_TOTAL_RESOURCE_BYTES / SGPU_MAX_RESOURCE_BYTES;
+        let resources: Vec<_> = (0..count).map(|_| session.create_resource(SGPU_MAX_RESOURCE_BYTES).unwrap()).collect();
+        assert!(matches!(session.create_resource(1), Err(SgpuError::ResourceLimit)));
+        session.destroy_resource(resources[0].sgp_handle).unwrap();
+        session.create_resource(SGPU_MAX_RESOURCE_BYTES).unwrap();
+        assert!(matches!(session.create_resource(1), Err(SgpuError::ResourceLimit)));
     }
 
     #[test]
