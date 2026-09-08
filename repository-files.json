@@ -18,8 +18,8 @@
     },
     {
       "path": "Cargo.toml",
-      "bytes": 375,
-      "sha256": "477fd2e587d1ba90850cd58f086064a8ef0c2cc80c03b299d3aeb70b906d2738"
+      "bytes": 390,
+      "sha256": "5d67e7874f3231c7d45afee7a75b8b6970137171538de88f2b691950ac8bb06c"
     },
     {
       "path": "IMPLEMENTATION.md",
@@ -33,13 +33,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 580,
-      "sha256": "e6fb048029a5ff2ddb2bd41473334192d2adb6df4945b8c141a7707f4258f6db"
+      "bytes": 659,
+      "sha256": "db52a9e39b63ffc77ef008861439f299f07e2bc1e9f88380a41b42830d7ff122"
     },
     {
       "path": "examples/run_host.rs",
       "bytes": 914,
       "sha256": "cb821b3ff001ae627e85f4e62800842330923c7e746d2ead51f2ebcd0db78e98"
+    },
+    {
+      "path": "repository.json",
+      "bytes": 1520,
+      "sha256": "8dee22455c8467aa8d39de87cc621c7ca07d54fd23dae8fc9244a347151ca46b"
     },
     {
       "path": "src/guest.rs",

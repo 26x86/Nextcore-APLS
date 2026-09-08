@@ -5,7 +5,7 @@ edition = "2021"
 publish = false
 
 [dependencies]
-nextcore-gpu = { git = "https://github.com/26x86/Nextcore-GPU.git", tag = "26x86-Nextcore-GPU-v0.1.1" }
+nextcore-gpu = { git = "https://github.com/26x86/Nextcore-GPU.git", rev = "84b881e8129774acee3e4faf944e833c407711fd" }
 plist = "1.10"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

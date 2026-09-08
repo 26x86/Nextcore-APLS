@@ -1,13 +1,17 @@
-# NextCore APLS
+# Nextcore-APLS
 
-AArch64 recovery orchestration and public guest interfaces.
+AArch64 recovery diagnostics and public execution interfaces. The production
+architecture is macOS ARM64e translated on an x86 computer at EFI startup;
+external recovery fixtures remain diagnostic tools.
 
-Clean-room module from [26x86](https://github.com/26x86/26x86), source commit `dcc90013109eac694ccbf997b1e44a7018480f78`.
+This independent repository consumes Nextcore-GPU through the immutable Git
+revision in `Cargo.toml`. In the integration repository, Cargo patches that URL
+to the matching GPU submodule. No sibling source checkout is needed for a
+standalone build:
 
-Repository snapshot: `26x86-Nextcore-APLS-v0.1.1`. Package version is preserved from that source.
+```sh
+cargo test --all-targets
+```
 
-Public source only; no Apple firmware, operating-system binaries or private research inputs. Module checks do not establish macOS boot, guest Metal or physical hardware support.
-
-## Fixed dependencies
-
-- [GPU](https://github.com/26x86/Nextcore-GPU/tree/26x86-Nextcore-GPU-v0.1.1)
+Previous release provenance is preserved in `repository.json`. Public source
+only; runtime acceptance of macOS boot and guest Metal remains unfinished.
