@@ -19,7 +19,7 @@
     {
       "path": "Cargo.toml",
       "bytes": 519,
-      "sha256": "c20ed386278d4b00d7eefdfb73c277223cbc8b32d69ee576bcb57695bb7d044c"
+      "sha256": "cf7c2cba395735180b0ce96c1a1e99827410be65a8a08e23edfdf0a9e6faab1b"
     },
     {
       "path": "IMPLEMENTATION.md",
@@ -64,7 +64,7 @@
     {
       "path": "repository.json",
       "bytes": 1520,
-      "sha256": "1b2f5c2fdbc82bde2eade26b00e57895fc4dda0520fab114ef0dc9d87d4fd692"
+      "sha256": "964f1bc40b78492306e1b37a98d064d83e85b20d7b8b6db6ea1650c242febe6b"
     },
     {
       "path": "src/guest.rs",

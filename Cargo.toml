@@ -9,7 +9,7 @@ default = []
 vulkan = ["nextcore-gpu/vulkan"]
 
 [dependencies]
-nextcore-gpu = { git = "https://github.com/26x86/Nextcore-GPU.git", rev = "34d617cca37d563d13ed0b0c966e2557921c6125" }
+nextcore-gpu = { git = "https://github.com/26x86/Nextcore-GPU.git", rev = "eaab9fcfded3a8ee298453397790f13edace5694" }
 plist = "1.10"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
