@@ -19,7 +19,7 @@
     {
       "path": "Cargo.toml",
       "bytes": 390,
-      "sha256": "5d67e7874f3231c7d45afee7a75b8b6970137171538de88f2b691950ac8bb06c"
+      "sha256": "823a9deef83128812f27d5527c089cdc5203ca9f5fb0d1f784441ebac0f33fd4"
     },
     {
       "path": "IMPLEMENTATION.md",
@@ -44,7 +44,7 @@
     {
       "path": "repository.json",
       "bytes": 1520,
-      "sha256": "8dee22455c8467aa8d39de87cc621c7ca07d54fd23dae8fc9244a347151ca46b"
+      "sha256": "8f53d72f833b488c2b9407e4fbb9bb5a1a67919770771f020e14d0ad5b0966d9"
     },
     {
       "path": "src/guest.rs",
@@ -68,8 +68,8 @@
     },
     {
       "path": "src/sgpu.rs",
-      "bytes": 22575,
-      "sha256": "46b9a649ae8f8c292f1440941ffcc44e603b6baf3b3fdfa854d52fb25783cd11"
+      "bytes": 18141,
+      "sha256": "8c01749d3b3ea7a401722f12c5fff9f1d9093742eb6df3be6bfef210b6e49b6a"
     },
     {
       "path": "src/vf_abi.rs",

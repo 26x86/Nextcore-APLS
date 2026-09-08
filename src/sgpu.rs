@@ -92,147 +92,7 @@ pub struct SgpuResource {
     pub size: u64,
 }
 
-#[derive(Debug, Clone, PartialEq)]
-pub enum SgpuCommand {
-    CopyBuffer { src: u64, dst: u64, size: u64 },
-    RenderClear { color: [f32; 4] },
-    ComputeDispatch { kernel_id: u32, grid: (u32, u32, u32), block: (u32, u32, u32) },
-    Present { buffer: u64 },
-}
-
-impl SgpuCommand {
-    pub fn tag(&self) -> u8 {
-        match self {
-            SgpuCommand::CopyBuffer { .. } => 1,
-            SgpuCommand::RenderClear { .. } => 2,
-            SgpuCommand::ComputeDispatch { .. } => 3,
-            SgpuCommand::Present { .. } => 4,
-        }
-    }
-
-    pub fn encode(&self) -> Vec<u8> {
-        let mut out = vec![self.tag()];
-        match self {
-            SgpuCommand::CopyBuffer { src, dst, size } => {
-                out.extend_from_slice(&src.to_le_bytes());
-                out.extend_from_slice(&dst.to_le_bytes());
-                out.extend_from_slice(&size.to_le_bytes());
-            }
-            SgpuCommand::RenderClear { color } => {
-                for c in color {
-                    out.extend_from_slice(&c.to_le_bytes());
-                }
-            }
-            SgpuCommand::ComputeDispatch { kernel_id, grid, block } => {
-                out.extend_from_slice(&kernel_id.to_le_bytes());
-                for v in [grid.0, grid.1, grid.2, block.0, block.1, block.2] {
-                    out.extend_from_slice(&v.to_le_bytes());
-                }
-            }
-            SgpuCommand::Present { buffer } => {
-                out.extend_from_slice(&buffer.to_le_bytes());
-            }
-        }
-        out
-    }
-
-    pub fn decode(bytes: &[u8]) -> Result<Self> {
-        if bytes.is_empty() {
-            return Err(SgpuError::Payload);
-        }
-        match bytes[0] {
-            1 => {
-                if bytes.len() < 25 {
-                    return Err(SgpuError::Payload);
-                }
-                Ok(SgpuCommand::CopyBuffer {
-                    src: u64::from_le_bytes(bytes[1..9].try_into().unwrap()),
-                    dst: u64::from_le_bytes(bytes[9..17].try_into().unwrap()),
-                    size: u64::from_le_bytes(bytes[17..25].try_into().unwrap()),
-                })
-            }
-            2 => {
-                if bytes.len() < 17 {
-                    return Err(SgpuError::Payload);
-                }
-                let mut color = [0f32; 4];
-                for (i, c) in color.iter_mut().enumerate() {
-                    *c = f32::from_le_bytes(bytes[1 + i * 4..5 + i * 4].try_into().unwrap());
-                }
-                Ok(SgpuCommand::RenderClear { color })
-            }
-            3 => {
-                if bytes.len() < 29 {
-                    return Err(SgpuError::Payload);
-                }
-                let kernel_id = u32::from_le_bytes(bytes[1..5].try_into().unwrap());
-                let vals = (0..6)
-                    .map(|i| u32::from_le_bytes(bytes[5 + i * 4..9 + i * 4].try_into().unwrap()))
-                    .collect::<Vec<_>>();
-                Ok(SgpuCommand::ComputeDispatch {
-                    kernel_id,
-                    grid: (vals[0], vals[1], vals[2]),
-                    block: (vals[3], vals[4], vals[5]),
-                })
-            }
-            4 => {
-                if bytes.len() < 9 {
-                    return Err(SgpuError::Payload);
-                }
-                Ok(SgpuCommand::Present {
-                    buffer: u64::from_le_bytes(bytes[1..9].try_into().unwrap()),
-                })
-            }
-            _ => Err(SgpuError::Payload),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct SgpuCommandList {
-    pub cmds: Vec<SgpuCommand>,
-}
-
-impl SgpuCommandList {
-    pub fn encode(&self) -> Vec<u8> {
-        let mut out = (self.cmds.len() as u32).to_le_bytes().to_vec();
-        for c in &self.cmds {
-            out.extend_from_slice(&c.encode());
-        }
-        out
-    }
-
-    pub fn decode(bytes: &[u8]) -> Result<Self> {
-        if bytes.len() < 4 {
-            return Err(SgpuError::Payload);
-        }
-        let count = u32::from_le_bytes(bytes[0..4].try_into().unwrap());
-        let mut p = 4usize;
-        let mut cmds = Vec::with_capacity(count as usize);
-        for _ in 0..count {
-            if p >= bytes.len() {
-                return Err(SgpuError::Payload);
-            }
-            let tag = bytes[p];
-            let len = match tag {
-                1 => 25,
-                2 => 17,
-                3 => 29,
-                4 => 9,
-                _ => return Err(SgpuError::Payload),
-            };
-            if p + len > bytes.len() {
-                return Err(SgpuError::Payload);
-            }
-            cmds.push(SgpuCommand::decode(&bytes[p..p + len])?);
-            p += len;
-        }
-        if p != bytes.len() {
-            return Err(SgpuError::Payload);
-        }
-        Ok(SgpuCommandList { cmds })
-    }
-}
+pub use nextcore_gpu::sgpu_command::{SgpuCommand, SgpuCommandList};
 
 /// A complete SGPU transfer unit: 64-byte VF header plus bounded payload.
 #[derive(Debug, Clone, PartialEq)]
@@ -430,6 +290,14 @@ mod tests {
 
     fn software_caps() -> GpuCapabilities {
         GpuCapabilities::software_fallback(GpuVendor::AMD, 4 << 20)
+    }
+
+    #[test]
+    fn shared_codec_rejects_guest_count_attack_and_trailing_record_data() {
+        assert!(SgpuCommandList::decode(&u32::MAX.to_le_bytes()).is_err());
+        let mut payload = SgpuCommand::Present { buffer: 1 }.encode();
+        payload.push(0);
+        assert!(SgpuCommand::decode(&payload).is_err());
     }
 
     #[test]
