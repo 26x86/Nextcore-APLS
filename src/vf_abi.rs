@@ -148,7 +148,8 @@ impl VfMsgHeader {
         out
     }
 
-    /// Shape validation. Mirrors `vf_validate_header_shape`: envelope shape is
+    /// Legacy APLS inline-profile shape validation. For exact VSK granted
+    /// messages use `sgpu_grant::validate_grant_header`. Envelope shape is
     /// separated from root-owned capability/grant identity, permissions,
     /// lifetime and range checks. Never authenticates anything.
     pub fn validate_shape(&self) -> Result<()> {

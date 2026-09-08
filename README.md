@@ -1,13 +1,28 @@
-# NextCore APLS
+# Nextcore-APLS
 
-AArch64 recovery orchestration and public guest interfaces.
+AArch64 recovery diagnostics and public execution interfaces. The production
+architecture is macOS ARM64e translated on an x86 computer at EFI startup;
+external recovery fixtures remain diagnostic tools.
 
-Clean-room module from [26x86](https://github.com/26x86/26x86), source commit `dcc90013109eac694ccbf997b1e44a7018480f78`.
+This independent repository consumes Nextcore-GPU through the immutable Git
+revision in `Cargo.toml`. In the integration repository, Cargo patches that URL
+to the matching GPU submodule. No sibling source checkout is needed for a
+standalone build:
 
-Repository snapshot: `26x86-Nextcore-APLS-v0.1.1`. Package version is preserved from that source.
+```sh
+cargo test --all-targets
+```
 
-Public source only; no Apple firmware, operating-system binaries or private research inputs. Module checks do not establish macOS boot, guest Metal or physical hardware support.
+Previous release provenance is preserved in `repository.json`. Public source
+only; runtime acceptance of macOS boot and guest Metal remains unfinished.
 
-## Fixed dependencies
+The [SGPU grant adapter](SGPU_GRANT_TRANSPORT.md) connects the existing inline
+frame format and VSK's 64-byte granted message to GPU's bounded compute session.
+Root-owned caller identity, canonical grant references and endpoint authorization
+remain explicit caller responsibilities. Default builds have no Vulkan backend;
+`--features vulkan` enables only the host development acceptance example.
 
-- [GPU](https://github.com/26x86/Nextcore-GPU/tree/26x86-Nextcore-GPU-v0.1.1)
+The RX 6800 XT [grant-path receipt](validation/sgpu-grant-rx6800xt-20260908/README.md)
+records four actual GPU dispatches and 512 independently checked readback values.
+This is authored transport/backend validation, not actual VSK-root or guest-driver
+submission, physical EFI GPU execution, or macOS Metal.

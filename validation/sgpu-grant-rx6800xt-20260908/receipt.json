@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-09-08T14:27:51.496517+00:00",
+  "scope": "authored trusted-root metadata + VSK grant transport + shared SGPU executor + physical Windows Vulkan development validation",
+  "apls_base_commit": "b885ab2f5dfe1d0c450bba148fa94b8a1e7e79c9",
+  "gpu_dependency_commit": "34d617cca37d563d13ed0b0c966e2557921c6125",
+  "gpu_dependency_from_published_git": true,
+  "host": {
+    "os": "Windows 11 Pro for Workstations 10.0.26200",
+    "adapter": "AMD Radeon RX 6800 XT",
+    "vendor_id": "1002",
+    "device_id": "73bf",
+    "windows_driver_version": "32.0.21043.10005"
+  },
+  "build": {
+    "environment": "WSL2 Ubuntu-24.04",
+    "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "target": "x86_64-pc-windows-msvc",
+    "linker": "lld-link with installed Windows SDK 10.0.26100.0 and MSVC 14.44.35207 x64 libraries",
+    "command": "cargo build --target x86_64-pc-windows-msvc --features vulkan --example sgpu_grant_vulkan",
+    "exe_sha256": "7d0a869859f80f0926786e4377ff4c31764dd54642ca885c702a8a2294fa1fba",
+    "shader_command": "glslangValidator -V --target-env vulkan1.1 examples/sgpu_grant.comp -o sgpu_grant.spv",
+    "shader_sha256": "76fe52859309c629242032b1b59f96482af878cfc081dbbaf7b0a4950e620f9b",
+    "spirv_validator_sha256": "0b0572c1903606e3afd12e392f069e090b9d405f19b8c0cb787aff2a1d1d5548"
+  },
+  "execution": {
+    "command": "sgpu_grant_vulkan.exe 1002 73bf spirv-val.exe sgpu_grant.spv",
+    "exit_code": 0,
+    "stderr_empty": true,
+    "gpu_dispatches": 4,
+    "software_buffer_copies": 2,
+    "independently_recomputed_raw_readback_words": 512,
+    "native_pipeline_compilations": 1,
+    "rejected_grant_cases": 9
+  },
+  "policy_differential": {
+    "cases": 892,
+    "status_comparisons": 1784,
+    "ubsan_clean": true,
+    "c_source_sha256": "3dd7aab6b20d0127cabc7eec1f4c6ddb1146a4427e591db81da1f6b7c126e8db",
+    "c_abi_header_sha256": "5064f990dfe6da50f06da7fd1e4a9ff642fcf9d69141e39babea680bcdaf0de8",
+    "c_policy_header_sha256": "61717d0025e174eca2c4d1ad3e87371dee8e83f0cfe66f2d3874802bcf6cc07f",
+    "command": "NEXTCORE_VSK_POLICY_ROOT=/path/to/26x86/sandbox/vsk cargo test --test sgpu_grant existing_vsk_c_policy_differential -- --ignored --nocapture"
+  },
+  "compiled_apls_source_sha256": {
+    "Cargo.toml": "c20ed386278d4b00d7eefdfb73c277223cbc8b32d69ee576bcb57695bb7d044c",
+    "src/guest.rs": "d42f2766d7c6c7679d87a97dcd58bea112da01cc523bfeaeb28c689181a6a16a",
+    "src/lib.rs": "f915b90e1181c078054d9ee40453df1f0b7ec8a859ee9a23ef7916e3abfbf19f",
+    "src/mode.rs": "0fa264c23e3835987d52e469c10515173afcb72df83b805aeb5e38dfa845b0e8",
+    "src/runner.rs": "7149a7d1c05292fb8d0914d894aaf3e8b81536962d806fea1524b0d9b08348d7",
+    "src/sgpu.rs": "a9217f3bb3374b8303073b08ef063c8a37103659aaaf1080a7ad1f560845b905",
+    "src/sgpu_grant.rs": "197563842b925f7e42c77961337f61895af92c8278e301de76bf6b8e13b566cf",
+    "src/vf_abi.rs": "f586cac9ac7d874a455f15d439f411046d030ca9349ced7fdfb9bfb25b5393f3",
+    "src/vf_policy.rs": "1f638f8ba9d8283d060402ccde1005a87a0c882cf7a0f8cb42197b90b3d56b1f",
+    "examples/sgpu_grant_vulkan.rs": "1b499f53c4f27d55301b13cb099a110c6a7ab2501786712a4c42379b0f460765",
+    "examples/sgpu_grant.comp": "1eea3b8268ff63bf8141e32629c5976c5e0b07df1327df3c335b987a8282e0a0"
+  },
+  "test_source_sha256": {
+    "tests/sgpu_grant.rs": "b1aee19aafb919ae8eea86a0084ed7aee1cf8f22835ef820a1d7b9a8f5def151",
+    "tests/vsk_policy_oracle.c": "8972e3debf1636d63e2964225ab38aab08c7aaf1445c5148be1923201c08cf18"
+  },
+  "actual_vsk_root_submission_verified": false,
+  "actual_guest_driver_submission_verified": false,
+  "efi_gpu_command_backend_verified": false,
+  "guest_metal_verified": false,
+  "macos_boot_verified": false,
+  "cpu_fallback": false
+}

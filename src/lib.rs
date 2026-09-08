@@ -5,6 +5,7 @@
 
 pub mod mode;
 pub mod sgpu;
+pub mod sgpu_grant;
 pub mod vf_abi;
 pub mod vf_policy;
 pub mod guest;

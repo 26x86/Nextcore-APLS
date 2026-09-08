@@ -1,22 +1,40 @@
 {
-  "schema": "26x86.repository/1",
+  "schema": "26x86.repository/2",
   "name": "Nextcore-APLS",
   "owner": "26x86",
   "public": true,
   "role": "nextcore-module",
   "crate": "nextcore-apls",
   "description": "AArch64 recovery orchestration and public guest interfaces",
-  "source_path": "nextcore/crates/nextcore-apls",
-  "source_commit": "dcc90013109eac694ccbf997b1e44a7018480f78",
-  "depends_on": [
-    "26x86/Nextcore-GPU"
-  ],
-  "initial_tag": "26x86-Nextcore-APLS-v0.1.0",
-  "generated_utc": "2026-09-08T06:40:16.873714+00:00",
-  "release_tag": "26x86-Nextcore-APLS-v0.1.1",
-  "previous_head": "76a0b8c32f9fa5f4408cf8dc678bdea78905113b",
-  "dependency_tags": {
-    "26x86/Nextcore-GPU": "26x86-Nextcore-GPU-v0.1.1"
+  "development": {
+    "branch": "codex/arm64e-boot-metal",
+    "base_commit": "f4d640e362fbcf160994d833b330e16506de9110",
+    "updated_utc": "2026-09-08T14:43:22.818780+00:00",
+    "dependency_revisions": {
+      "https://github.com/26x86/Nextcore-GPU": "34d617cca37d563d13ed0b0c966e2557921c6125"
+    },
+    "integration": "Git submodule with an immutable gitlink; workspace source patches for local development"
   },
-  "export_method": "immutable git objects applied to existing main; manifest dependency rewrite only"
+  "release_provenance": {
+    "schema": "26x86.repository/1",
+    "name": "Nextcore-APLS",
+    "owner": "26x86",
+    "public": true,
+    "role": "nextcore-module",
+    "crate": "nextcore-apls",
+    "description": "AArch64 recovery orchestration and public guest interfaces",
+    "source_path": "nextcore/crates/nextcore-apls",
+    "source_commit": "dcc90013109eac694ccbf997b1e44a7018480f78",
+    "depends_on": [
+      "26x86/Nextcore-GPU"
+    ],
+    "initial_tag": "26x86-Nextcore-APLS-v0.1.0",
+    "generated_utc": "2026-09-08T06:40:16.873714+00:00",
+    "release_tag": "26x86-Nextcore-APLS-v0.1.1",
+    "previous_head": "76a0b8c32f9fa5f4408cf8dc678bdea78905113b",
+    "dependency_tags": {
+      "26x86/Nextcore-GPU": "26x86-Nextcore-GPU-v0.1.1"
+    },
+    "export_method": "immutable git objects applied to existing main; manifest dependency rewrite only"
+  }
 }

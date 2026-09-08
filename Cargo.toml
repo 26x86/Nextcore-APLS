@@ -4,8 +4,12 @@ version = "0.1.0"
 edition = "2021"
 publish = false
 
+[features]
+default = []
+vulkan = ["nextcore-gpu/vulkan"]
+
 [dependencies]
-nextcore-gpu = { git = "https://github.com/26x86/Nextcore-GPU.git", tag = "26x86-Nextcore-GPU-v0.1.1" }
+nextcore-gpu = { git = "https://github.com/26x86/Nextcore-GPU.git", rev = "34d617cca37d563d13ed0b0c966e2557921c6125" }
 plist = "1.10"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
@@ -13,3 +17,7 @@ sha2 = "0.10"
 thiserror = { version = "2", default-features = false }
 
 [dev-dependencies]
+
+[[example]]
+name = "sgpu_grant_vulkan"
+required-features = ["vulkan"]
