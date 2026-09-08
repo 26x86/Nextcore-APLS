@@ -3,28 +3,23 @@
   "files": [
     {
       "path": ".gitattributes",
-      "bytes": 30,
-      "sha256": "9319637ee361d94b77df3b8f63b650075d6933135e97a0e9b7fdf4240fe7b95c"
+      "bytes": 28,
+      "sha256": "4b0f1fc438f30f25abe421b7542e9f3803b8b5c15ca3695614222e2bc547a9fe"
     },
     {
       "path": ".github/workflows/ci.yml",
-      "bytes": 285,
-      "sha256": "90314a2c96a3233a2b662b831c4b4ae2768ecddccab6a900a49385641f3581c3"
+      "bytes": 271,
+      "sha256": "c38deae71e24d724b4e1da4455cdddd9629062f7940bdaf6311d50f67b01c443"
     },
     {
       "path": ".gitignore",
-      "bytes": 22,
-      "sha256": "2a58829f54c2e8f11df2f4f4e94b1c06962eee8a1bd17bab47a9f2221eac95c9"
+      "bytes": 20,
+      "sha256": "9cc2c8cc102e0b2a0a177c8f594abc9b9776300a04473c24b45d52c1007a4119"
     },
     {
       "path": "Cargo.toml",
-      "bytes": 390,
-      "sha256": "227262c06df48b9efb58a98ed499a4edc701ce1bd2285a153c68913356fe31c8"
-    },
-    {
-      "path": "examples/run_host.rs",
-      "bytes": 914,
-      "sha256": "cb821b3ff001ae627e85f4e62800842330923c7e746d2ead51f2ebcd0db78e98"
+      "bytes": 375,
+      "sha256": "477fd2e587d1ba90850cd58f086064a8ef0c2cc80c03b299d3aeb70b906d2738"
     },
     {
       "path": "IMPLEMENTATION.md",
@@ -33,13 +28,18 @@
     },
     {
       "path": "LICENSE.txt",
-      "bytes": 1865,
-      "sha256": "64d8c31222df29cfd8327944815b8d6b3c202a45540d49524a4617f50825a5c4"
+      "bytes": 1851,
+      "sha256": "77c458ccb6116400cf960f8951630bc3b8b34731b56ffbd736b95c2b78449104"
     },
     {
       "path": "README.md",
-      "bytes": 407,
-      "sha256": "671b4d603e74f766e79aab6be873813353e7a3355d1d65f014597ce3ddef90c2"
+      "bytes": 580,
+      "sha256": "e6fb048029a5ff2ddb2bd41473334192d2adb6df4945b8c141a7707f4258f6db"
+    },
+    {
+      "path": "examples/run_host.rs",
+      "bytes": 914,
+      "sha256": "cb821b3ff001ae627e85f4e62800842330923c7e746d2ead51f2ebcd0db78e98"
     },
     {
       "path": "src/guest.rs",
@@ -63,8 +63,8 @@
     },
     {
       "path": "src/sgpu.rs",
-      "bytes": 21040,
-      "sha256": "bb4138b1f3d0ca4a1d59929bc048acc39cf8e7c1c8e126cb0eb9a40643728205"
+      "bytes": 22575,
+      "sha256": "46b9a649ae8f8c292f1440941ffcc44e603b6baf3b3fdfa854d52fb25783cd11"
     },
     {
       "path": "src/vf_abi.rs",
@@ -73,8 +73,13 @@
     },
     {
       "path": "src/vf_policy.rs",
-      "bytes": 13778,
-      "sha256": "a6379880b400b79c1a28d1dc5a03fcdeb2dc0a03e84f18ee86cab93e2f1290f1"
+      "bytes": 13970,
+      "sha256": "1f638f8ba9d8283d060402ccde1005a87a0c882cf7a0f8cb42197b90b3d56b1f"
+    },
+    {
+      "path": "tests/data/golden-gate.template.plist",
+      "bytes": 1397,
+      "sha256": "b22d75eef97728728894e074072b8ce0ed0730e968ce16d8af732ee35f3df438"
     }
   ]
 }

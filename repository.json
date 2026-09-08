@@ -5,12 +5,18 @@
   "public": true,
   "role": "nextcore-module",
   "crate": "nextcore-apls",
-  "description": "AArch64 VMApple recovery runner and guest ABI",
+  "description": "AArch64 recovery orchestration and public guest interfaces",
   "source_path": "nextcore/crates/nextcore-apls",
-  "source_commit": "3acb61b5c60e3519debb5a65cf47629c387e12cf",
+  "source_commit": "dcc90013109eac694ccbf997b1e44a7018480f78",
   "depends_on": [
     "26x86/Nextcore-GPU"
   ],
   "initial_tag": "26x86-Nextcore-APLS-v0.1.0",
-  "generated_utc": "2026-09-07T12:43:22.668202+00:00"
+  "generated_utc": "2026-09-08T06:40:16.873714+00:00",
+  "release_tag": "26x86-Nextcore-APLS-v0.1.1",
+  "previous_head": "76a0b8c32f9fa5f4408cf8dc678bdea78905113b",
+  "dependency_tags": {
+    "26x86/Nextcore-GPU": "26x86-Nextcore-GPU-v0.1.1"
+  },
+  "export_method": "immutable git objects applied to existing main; manifest dependency rewrite only"
 }

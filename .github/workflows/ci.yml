@@ -1,4 +1,4 @@
-name: Nextcore-APLS CI
+name: NextCore APLS CI
 on:
   push:
   pull_request:
