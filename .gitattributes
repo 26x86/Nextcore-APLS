@@ -1,2 +1,4 @@
 * text=auto
 *.S text eol=lf
+
+validation/sgpu-grant-rx6800xt-20260908/*.log -text -whitespace

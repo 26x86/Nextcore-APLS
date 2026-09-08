@@ -9,7 +9,7 @@
   "development": {
     "branch": "codex/arm64e-boot-metal",
     "base_commit": "f4d640e362fbcf160994d833b330e16506de9110",
-    "updated_utc": "2026-09-08T13:32:40.985959+00:00",
+    "updated_utc": "2026-09-08T14:43:22.818780+00:00",
     "dependency_revisions": {
       "https://github.com/26x86/Nextcore-GPU": "34d617cca37d563d13ed0b0c966e2557921c6125"
     },

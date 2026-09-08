@@ -31,8 +31,9 @@ Decisions:
 
 The APLS inline frame stores payload bytes after its 64-byte header. It is not
 identical to VSK's direct root ABI, whose 64-byte message refers to a separately
-validated grant-backed payload. Bridging those transport forms is separate work;
-these checks do not authenticate callers/grants or establish guest Metal.
+validated grant-backed payload. BP27 adds the checked adapter described in
+[SGPU_GRANT_TRANSPORT.md](SGPU_GRANT_TRANSPORT.md); inline frames alone still
+do not authenticate callers/grants or establish guest Metal.
 
 Regression checks cover old `?` propagation and explicit return conversion,
 header/payload round trips with padding, all truncations, trailing bytes,
