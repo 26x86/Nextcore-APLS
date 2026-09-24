@@ -1,0 +1,16 @@
+{
+  "schema": "26x86.repository/1",
+  "name": "Nextcore-APLS",
+  "owner": "26x86",
+  "public": true,
+  "role": "nextcore-module",
+  "crate": "nextcore-apls",
+  "description": "AArch64 VMApple recovery runner and guest ABI",
+  "source_path": "nextcore/crates/nextcore-apls",
+  "source_commit": "93e4a9ebc1a05e2cbec78125a0186ca1b71d98d6",
+  "depends_on": [
+    "26x86/Nextcore-GPU"
+  ],
+  "initial_tag": "26x86-Nextcore-APLS-20260924",
+  "generated_utc": "2026-09-24T21:33:39.577054+00:00"
+}
