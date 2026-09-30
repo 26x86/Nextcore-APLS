@@ -38,7 +38,7 @@
     "dependencies": {
       "nextcore-gpu": {
         "repository": "26x86/Nextcore-GPU",
-        "revision": "d57619d7831c2120525615b3eaf4669abdb0cbf6"
+        "revision": "887cf866ae22f135e4f75f5b3b6b9668d56d6d77"
       }
     },
     "macos_boot_verified": false,

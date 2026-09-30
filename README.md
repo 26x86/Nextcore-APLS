@@ -6,7 +6,7 @@ external recovery fixtures remain diagnostic tools.
 
 This independent repository consumes Nextcore-GPU through the immutable Git
 revision in `Cargo.toml`. In the integration repository, Cargo patches that URL
-to the matching GPU submodule. No sibling source checkout is needed for a
+to the matching tracked GPU source snapshot. No sibling source checkout is needed for a
 standalone build:
 
 ```sh

@@ -20,7 +20,7 @@
     {
       "path": "Cargo.toml",
       "bytes": 519,
-      "sha256": "f7d1e0e6c4d4de41719feba13fdf3d4ba615cadffa6bec6d31730edb5ac2aebd"
+      "sha256": "a5ddbfc951ab0364089ee9e8d013803e39caf187c60c18caa6e53fcd2cea38e5"
     },
     {
       "path": "IMPLEMENTATION.md",
@@ -34,8 +34,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 1965,
-      "sha256": "c50980fd7cb803ecc7e7d2d8ea37cccb5b27defe45f06712ddf13b90b04856c2"
+      "bytes": 1979,
+      "sha256": "8bb8be795b1cf7373a0830a2deee9d26d0f9214af9f32accae0fdd817d23627b"
     },
     {
       "path": "SGPU_GRANT_TRANSPORT.md",
@@ -65,7 +65,7 @@
     {
       "path": "repository.json",
       "bytes": 1868,
-      "sha256": "bfd8f038b27d6d7701b752781541197053a51c9765c0c720771ca872968748a6"
+      "sha256": "eabb91017ca69fbe6394940cf18e414d5d6c25853ab8dafc3f19cb3476abb99e"
     },
     {
       "path": "src/guest.rs",
