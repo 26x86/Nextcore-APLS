@@ -1,20 +1,11 @@
 {
-  "schema": "26x86.repository/2",
+  "schema": "26x86.repository/3",
   "name": "Nextcore-APLS",
   "owner": "26x86",
   "public": true,
   "role": "nextcore-module",
   "crate": "nextcore-apls",
-  "description": "AArch64 recovery orchestration and public guest interfaces",
-  "development": {
-    "branch": "codex/arm64e-memory-gpu",
-    "base_commit": "f4d640e362fbcf160994d833b330e16506de9110",
-    "updated_utc": "2026-09-08T15:29:56.927922+00:00",
-    "dependency_revisions": {
-      "https://github.com/26x86/Nextcore-GPU": "eaab9fcfded3a8ee298453397790f13edace5694"
-    },
-    "integration": "Git submodule with an immutable gitlink; workspace source patches for local development"
-  },
+  "description": "AArch64 VMApple recovery orchestration and guest ABI",
   "release_provenance": {
     "schema": "26x86.repository/1",
     "name": "Nextcore-APLS",
@@ -36,5 +27,23 @@
       "26x86/Nextcore-GPU": "26x86-Nextcore-GPU-v0.1.1"
     },
     "export_method": "immutable git objects applied to existing main; manifest dependency rewrite only"
+  },
+  "publication": {
+    "snapshot": "engineering-preview-20260930",
+    "source_revision": "eccda6849e8ddc19d9c1b68a7f47381312201d58",
+    "source_path": "nextcore/crates/nextcore-apls",
+    "previous_public_revision": "b59e4b640dd2b875f14ae3194a93173cb00628d9",
+    "method": "Immutable reviewed Git blobs applied to existing public history",
+    "integration": "Tracked integration source; independent Git dependencies pin exact public revisions",
+    "dependencies": {
+      "nextcore-gpu": {
+        "repository": "26x86/Nextcore-GPU",
+        "revision": "887cf866ae22f135e4f75f5b3b6b9668d56d6d77"
+      }
+    },
+    "macos_boot_verified": false,
+    "metal_verified": false,
+    "physical_installation_verified": false,
+    "device_qualification_verified": false
   }
 }
