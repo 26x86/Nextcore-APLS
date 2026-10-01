@@ -1,0 +1,140 @@
+{
+  "schema": "26x86.repository-files/1",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 28,
+      "sha256": "4b0f1fc438f30f25abe421b7542e9f3803b8b5c15ca3695614222e2bc547a9fe"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 271,
+      "sha256": "65afb8a539e8b4d8d6c7d10e0b5410dbde5cc245cd004d22300e1bc06b30e78e"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 20,
+      "sha256": "9cc2c8cc102e0b2a0a177c8f594abc9b9776300a04473c24b45d52c1007a4119"
+    },
+    {
+      "path": "Cargo.toml",
+      "bytes": 519,
+      "sha256": "22cbaace1f19c9aa4a0839166a3459266efda3844ca826ef6a16735c7448cef0"
+    },
+    {
+      "path": "IMPLEMENTATION.md",
+      "bytes": 6069,
+      "sha256": "6ee87162106a60e16f78d2287a6ab663f8785303b08c6fde08f90b94c02d2ecd"
+    },
+    {
+      "path": "LICENSE.txt",
+      "bytes": 1851,
+      "sha256": "77c458ccb6116400cf960f8951630bc3b8b34731b56ffbd736b95c2b78449104"
+    },
+    {
+      "path": "README.md",
+      "bytes": 398,
+      "sha256": "93e1a75b05cfb1aa507294ec35258d80c013a422bbd09192963c8deb9a838c63"
+    },
+    {
+      "path": "SGPU_GRANT_TRANSPORT.md",
+      "bytes": 5031,
+      "sha256": "c617ddf32eef18159dc69812c27309fb8cf9cd2874d55d2c4a10d423c7e12b69"
+    },
+    {
+      "path": "SGPU_TRANSPORT.md",
+      "bytes": 3428,
+      "sha256": "5b2873f9d40b7237f2ec6b430f9efad9da7b7207e33e2107af629edb7d1b20c4"
+    },
+    {
+      "path": "examples/run_host.rs",
+      "bytes": 914,
+      "sha256": "cb821b3ff001ae627e85f4e62800842330923c7e746d2ead51f2ebcd0db78e98"
+    },
+    {
+      "path": "examples/sgpu_grant.comp",
+      "bytes": 233,
+      "sha256": "1eea3b8268ff63bf8141e32629c5976c5e0b07df1327df3c335b987a8282e0a0"
+    },
+    {
+      "path": "examples/sgpu_grant_vulkan.rs",
+      "bytes": 8749,
+      "sha256": "1b499f53c4f27d55301b13cb099a110c6a7ab2501786712a4c42379b0f460765"
+    },
+    {
+      "path": "src/guest.rs",
+      "bytes": 13397,
+      "sha256": "d42f2766d7c6c7679d87a97dcd58bea112da01cc523bfeaeb28c689181a6a16a"
+    },
+    {
+      "path": "src/lib.rs",
+      "bytes": 439,
+      "sha256": "f915b90e1181c078054d9ee40453df1f0b7ec8a859ee9a23ef7916e3abfbf19f"
+    },
+    {
+      "path": "src/mode.rs",
+      "bytes": 2314,
+      "sha256": "0fa264c23e3835987d52e469c10515173afcb72df83b805aeb5e38dfa845b0e8"
+    },
+    {
+      "path": "src/runner.rs",
+      "bytes": 59834,
+      "sha256": "7149a7d1c05292fb8d0914d894aaf3e8b81536962d806fea1524b0d9b08348d7"
+    },
+    {
+      "path": "src/sgpu.rs",
+      "bytes": 27779,
+      "sha256": "a9217f3bb3374b8303073b08ef063c8a37103659aaaf1080a7ad1f560845b905"
+    },
+    {
+      "path": "src/sgpu_grant.rs",
+      "bytes": 10835,
+      "sha256": "197563842b925f7e42c77961337f61895af92c8278e301de76bf6b8e13b566cf"
+    },
+    {
+      "path": "src/vf_abi.rs",
+      "bytes": 10113,
+      "sha256": "f586cac9ac7d874a455f15d439f411046d030ca9349ced7fdfb9bfb25b5393f3"
+    },
+    {
+      "path": "src/vf_policy.rs",
+      "bytes": 13970,
+      "sha256": "1f638f8ba9d8283d060402ccde1005a87a0c882cf7a0f8cb42197b90b3d56b1f"
+    },
+    {
+      "path": "tests/data/golden-gate.template.plist",
+      "bytes": 1397,
+      "sha256": "b22d75eef97728728894e074072b8ce0ed0730e968ce16d8af732ee35f3df438"
+    },
+    {
+      "path": "tests/sgpu_grant.rs",
+      "bytes": 19292,
+      "sha256": "b1aee19aafb919ae8eea86a0084ed7aee1cf8f22835ef820a1d7b9a8f5def151"
+    },
+    {
+      "path": "tests/vsk_policy_oracle.c",
+      "bytes": 2094,
+      "sha256": "8972e3debf1636d63e2964225ab38aab08c7aaf1445c5148be1923201c08cf18"
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/README.md",
+      "bytes": 1969,
+      "sha256": "c3053a485cb6c939b9691cf0234531b2c1a64a365ff680b938142317a36ee83d"
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/cargo-lock.toml",
+      "bytes": 9153,
+      "sha256": "308076560ee00099645cb902f224310eea5249dd38f7607a0943347213dcb8fd"
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/hardware-example.json",
+      "bytes": 8857,
+      "sha256": "dad97e37a08eff078cd83fa0f955f0fe8e4aeef261b5533aba32176ce6c26882"
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/receipt.json",
+      "bytes": 3735,
+      "sha256": "bb27f3736959c62afd877d3bc3761ededaed2669474c012d60c3f7e2cc4f05e7"
+    }
+  ]
+}

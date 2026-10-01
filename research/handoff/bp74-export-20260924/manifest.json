@@ -1,0 +1,534 @@
+{
+  "schema": 1,
+  "module": "nextcore-apls",
+  "public_repository": "https://github.com/26x86/Nextcore-APLS.git",
+  "current_published_prior_handoff_revision": "62593a94183f551bd9f586d5c90debc2e67831c7",
+  "export_commit": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+  "export_commit_parents": [],
+  "export_tree": "73c428e8703705f47a154ca2f0d6c4cff907e21e",
+  "original_public_parent_source_commit": "93e4a9ebc1a05e2cbec78125a0186ca1b71d98d6",
+  "original_public_source_tree_URL": "https://github.com/26x86/26x86/tree/93e4a9ebc1a05e2cbec78125a0186ca1b71d98d6/nextcore/crates/nextcore-apls",
+  "archive_kind": "Historical unfinished public module export variants; original unrelated Git commit identity retained by ordinary merge",
+  "current_active_source_modified": false,
+  "preservation_scope": "Exact older public variants differing from current module source, plus the original source license. Export paths already equal to active public source remain preserved by both Git histories.",
+  "attribute_boundary": "Historical .gitattributes and .gitignore are stored as inert metadata filenames. Original paths remain in the original export commit and in each file record. Archive-only attributes disable text normalization and whitespace diagnostics on preserved variants.",
+  "verification_boundary": "Source byte and Git ancestry verification only. No compiler, test, EFI, guest boot, macOS, Metal or device acceptance was executed by this archival task.",
+  "source_tree_inventory": [
+    {
+      "path": ".gitattributes",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "5dabb2b27b17fb46a94713256fba0372eaa68784",
+      "bytes": 28,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "015492ca25107accc5b73c1d1c59f10d36f3f0b8",
+      "bytes": 271,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "ca98cd96efdc228b0c0d0e264bfc0ce9ddadfdd7",
+      "bytes": 20,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "Cargo.toml",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "dc4335ff674afd40dbb5247e6eb2c379111013e0",
+      "bytes": 519,
+      "blob_already_in_published_prior_history": false
+    },
+    {
+      "path": "IMPLEMENTATION.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "3d0aef5640ed3b4b3a33efe856dbb3680bedf5d3",
+      "bytes": 6069,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "LICENSE.txt",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "f7389913f3fd1cb41276bb098a352b0e27e7e879",
+      "bytes": 1851,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "21e5464babc8cb21823eba1d8e3c14295f269a3f",
+      "bytes": 398,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "SGPU_GRANT_TRANSPORT.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "7dc941bb29d7665f6954abe857a474b5dff5a7b8",
+      "bytes": 5031,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "SGPU_TRANSPORT.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "4410ccbf3071d9e4042850e15f41b1447213f430",
+      "bytes": 3428,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "examples/run_host.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "21f484d4e2cda96ed01d714b776b0517135251bf",
+      "bytes": 914,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "examples/sgpu_grant.comp",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "64972e396bc03ad364718db8727ffcc587c1afad",
+      "bytes": 233,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "examples/sgpu_grant_vulkan.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "e85eb06e3749ac08730ddfbf8de05d31774fce04",
+      "bytes": 8749,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "repository-files.json",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "3c72b8f1233174631d92c53b3fca442ee121681c",
+      "bytes": 4311,
+      "blob_already_in_published_prior_history": false
+    },
+    {
+      "path": "repository.json",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "dc84c848ff0fb04000a10f43c9eb8b64e7b7dc70",
+      "bytes": 490,
+      "blob_already_in_published_prior_history": false
+    },
+    {
+      "path": "src/guest.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "760129d172b49fbc8a1efd847e30c6af4579b69f",
+      "bytes": 13397,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "src/lib.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "958de7e82e69b6dbd80096371e575c08e6ecfc8f",
+      "bytes": 439,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "src/mode.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "48387b738030f71efb62b2d92d0c251b19938306",
+      "bytes": 2314,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "src/runner.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "f93957db2b64ac62aa67506ef825379164de061b",
+      "bytes": 59834,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "src/sgpu.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "ee29c35ac12ba7b3d5bd34b77270cb324e37d675",
+      "bytes": 27779,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "src/sgpu_grant.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "c309fcead865bc7d7b288934bfa1c46153f38336",
+      "bytes": 10835,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "src/vf_abi.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "2844d8a9e23fbca25eda8b1c7f6c67c5ca712099",
+      "bytes": 10113,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "src/vf_policy.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "f728a3ba5451636112fa04d1215e0b9b830fc38d",
+      "bytes": 13970,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "tests/data/golden-gate.template.plist",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "23b0700fc5531a955c8e70d47a4185a3ba550e19",
+      "bytes": 1397,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "tests/sgpu_grant.rs",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "d6fa21551cfc759c98d82428a707f998a06857b2",
+      "bytes": 19292,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "tests/vsk_policy_oracle.c",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "829e45fc03f84d4d5cd12a532876645a56a4e9c7",
+      "bytes": 2094,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "1edb20743fa04ef541675dfa20bbdf92a620990e",
+      "bytes": 1969,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/cargo-lock.toml",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "81b3657552e5377bc07718897341740ff1334136",
+      "bytes": 9153,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/hardware-example.json",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "a67a9eca907e3d1ae8bfd9e33a96b1dc971a4a22",
+      "bytes": 8857,
+      "blob_already_in_published_prior_history": true
+    },
+    {
+      "path": "validation/sgpu-grant-rx6800xt-20260908/receipt.json",
+      "mode": "100644",
+      "type": "blob",
+      "git_blob_sha1": "f2e85d7df4cca6dac23ac76b1a9c4e130be10ceb",
+      "bytes": 3735,
+      "blob_already_in_published_prior_history": true
+    }
+  ],
+  "original_public_source_comparisons": [
+    {
+      "export_path": ".gitattributes",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/.gitattributes",
+      "original_blob": "d7d09582f1fb1995054958a8ae381d34d84d5393",
+      "export_blob": "5dabb2b27b17fb46a94713256fba0372eaa68784",
+      "exact_original_public_source_blob": false
+    },
+    {
+      "export_path": ".github/workflows/ci.yml",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/.github/workflows/ci.yml",
+      "original_blob": "60e92d3e12db7cb484314f3e0889d11c99ef8bd4",
+      "export_blob": "015492ca25107accc5b73c1d1c59f10d36f3f0b8",
+      "exact_original_public_source_blob": false
+    },
+    {
+      "export_path": ".gitignore",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/.gitignore",
+      "original_blob": "ca98cd96efdc228b0c0d0e264bfc0ce9ddadfdd7",
+      "export_blob": "ca98cd96efdc228b0c0d0e264bfc0ce9ddadfdd7",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "Cargo.toml",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/Cargo.toml",
+      "original_blob": "dc4335ff674afd40dbb5247e6eb2c379111013e0",
+      "export_blob": "dc4335ff674afd40dbb5247e6eb2c379111013e0",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "IMPLEMENTATION.md",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/IMPLEMENTATION.md",
+      "original_blob": "3d0aef5640ed3b4b3a33efe856dbb3680bedf5d3",
+      "export_blob": "3d0aef5640ed3b4b3a33efe856dbb3680bedf5d3",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "LICENSE.txt",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/LICENSE.txt",
+      "original_blob": "f7389913f3fd1cb41276bb098a352b0e27e7e879",
+      "export_blob": "f7389913f3fd1cb41276bb098a352b0e27e7e879",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "README.md",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/README.md",
+      "original_blob": "b10e2f5bd0d6ab33ad9aff943963b6e7e307b579",
+      "export_blob": "21e5464babc8cb21823eba1d8e3c14295f269a3f",
+      "exact_original_public_source_blob": false
+    },
+    {
+      "export_path": "SGPU_GRANT_TRANSPORT.md",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/SGPU_GRANT_TRANSPORT.md",
+      "original_blob": "7dc941bb29d7665f6954abe857a474b5dff5a7b8",
+      "export_blob": "7dc941bb29d7665f6954abe857a474b5dff5a7b8",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "SGPU_TRANSPORT.md",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/SGPU_TRANSPORT.md",
+      "original_blob": "4410ccbf3071d9e4042850e15f41b1447213f430",
+      "export_blob": "4410ccbf3071d9e4042850e15f41b1447213f430",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "examples/run_host.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/examples/run_host.rs",
+      "original_blob": "21f484d4e2cda96ed01d714b776b0517135251bf",
+      "export_blob": "21f484d4e2cda96ed01d714b776b0517135251bf",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "examples/sgpu_grant.comp",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/examples/sgpu_grant.comp",
+      "original_blob": "64972e396bc03ad364718db8727ffcc587c1afad",
+      "export_blob": "64972e396bc03ad364718db8727ffcc587c1afad",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "examples/sgpu_grant_vulkan.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/examples/sgpu_grant_vulkan.rs",
+      "original_blob": "e85eb06e3749ac08730ddfbf8de05d31774fce04",
+      "export_blob": "e85eb06e3749ac08730ddfbf8de05d31774fce04",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "repository-files.json",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/repository-files.json",
+      "original_blob": "0907133b90457b939f6624a19660209f5e0a8bab",
+      "export_blob": "3c72b8f1233174631d92c53b3fca442ee121681c",
+      "exact_original_public_source_blob": false
+    },
+    {
+      "export_path": "repository.json",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/repository.json",
+      "original_blob": "c29fbd21fb8e801519b93c70a7d9602a76089ddf",
+      "export_blob": "dc84c848ff0fb04000a10f43c9eb8b64e7b7dc70",
+      "exact_original_public_source_blob": false
+    },
+    {
+      "export_path": "src/guest.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/guest.rs",
+      "original_blob": "760129d172b49fbc8a1efd847e30c6af4579b69f",
+      "export_blob": "760129d172b49fbc8a1efd847e30c6af4579b69f",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "src/lib.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/lib.rs",
+      "original_blob": "958de7e82e69b6dbd80096371e575c08e6ecfc8f",
+      "export_blob": "958de7e82e69b6dbd80096371e575c08e6ecfc8f",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "src/mode.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/mode.rs",
+      "original_blob": "48387b738030f71efb62b2d92d0c251b19938306",
+      "export_blob": "48387b738030f71efb62b2d92d0c251b19938306",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "src/runner.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/runner.rs",
+      "original_blob": "f93957db2b64ac62aa67506ef825379164de061b",
+      "export_blob": "f93957db2b64ac62aa67506ef825379164de061b",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "src/sgpu.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/sgpu.rs",
+      "original_blob": "ee29c35ac12ba7b3d5bd34b77270cb324e37d675",
+      "export_blob": "ee29c35ac12ba7b3d5bd34b77270cb324e37d675",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "src/sgpu_grant.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/sgpu_grant.rs",
+      "original_blob": "c309fcead865bc7d7b288934bfa1c46153f38336",
+      "export_blob": "c309fcead865bc7d7b288934bfa1c46153f38336",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "src/vf_abi.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/vf_abi.rs",
+      "original_blob": "2844d8a9e23fbca25eda8b1c7f6c67c5ca712099",
+      "export_blob": "2844d8a9e23fbca25eda8b1c7f6c67c5ca712099",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "src/vf_policy.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/src/vf_policy.rs",
+      "original_blob": "f728a3ba5451636112fa04d1215e0b9b830fc38d",
+      "export_blob": "f728a3ba5451636112fa04d1215e0b9b830fc38d",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "tests/data/golden-gate.template.plist",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/tests/data/golden-gate.template.plist",
+      "original_blob": "23b0700fc5531a955c8e70d47a4185a3ba550e19",
+      "export_blob": "23b0700fc5531a955c8e70d47a4185a3ba550e19",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "tests/sgpu_grant.rs",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/tests/sgpu_grant.rs",
+      "original_blob": "d6fa21551cfc759c98d82428a707f998a06857b2",
+      "export_blob": "d6fa21551cfc759c98d82428a707f998a06857b2",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "tests/vsk_policy_oracle.c",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/tests/vsk_policy_oracle.c",
+      "original_blob": "829e45fc03f84d4d5cd12a532876645a56a4e9c7",
+      "export_blob": "829e45fc03f84d4d5cd12a532876645a56a4e9c7",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "validation/sgpu-grant-rx6800xt-20260908/README.md",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/validation/sgpu-grant-rx6800xt-20260908/README.md",
+      "original_blob": "1edb20743fa04ef541675dfa20bbdf92a620990e",
+      "export_blob": "1edb20743fa04ef541675dfa20bbdf92a620990e",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "validation/sgpu-grant-rx6800xt-20260908/cargo-lock.toml",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/validation/sgpu-grant-rx6800xt-20260908/cargo-lock.toml",
+      "original_blob": "81b3657552e5377bc07718897341740ff1334136",
+      "export_blob": "81b3657552e5377bc07718897341740ff1334136",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "validation/sgpu-grant-rx6800xt-20260908/hardware-example.json",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/validation/sgpu-grant-rx6800xt-20260908/hardware-example.json",
+      "original_blob": "a67a9eca907e3d1ae8bfd9e33a96b1dc971a4a22",
+      "export_blob": "a67a9eca907e3d1ae8bfd9e33a96b1dc971a4a22",
+      "exact_original_public_source_blob": true
+    },
+    {
+      "export_path": "validation/sgpu-grant-rx6800xt-20260908/receipt.json",
+      "original_public_source_path": "nextcore/crates/nextcore-apls/validation/sgpu-grant-rx6800xt-20260908/receipt.json",
+      "original_blob": "f2e85d7df4cca6dac23ac76b1a9c4e130be10ceb",
+      "export_blob": "f2e85d7df4cca6dac23ac76b1a9c4e130be10ceb",
+      "exact_original_public_source_blob": true
+    }
+  ],
+  "files": [
+    {
+      "original_relative_path": ".gitattributes",
+      "archive_relative_path": "metadata/original-gitattributes.txt",
+      "source_revision": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+      "git_blob_sha1": "5dabb2b27b17fb46a94713256fba0372eaa68784",
+      "sha256": "4b0f1fc438f30f25abe421b7542e9f3803b8b5c15ca3695614222e2bc547a9fe",
+      "bytes": 28,
+      "original_git_mode": "100644",
+      "archive_git_mode": "100644",
+      "license_path": "LICENSE.txt"
+    },
+    {
+      "original_relative_path": ".github/workflows/ci.yml",
+      "archive_relative_path": ".github/workflows/ci.yml",
+      "source_revision": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+      "git_blob_sha1": "015492ca25107accc5b73c1d1c59f10d36f3f0b8",
+      "sha256": "65afb8a539e8b4d8d6c7d10e0b5410dbde5cc245cd004d22300e1bc06b30e78e",
+      "bytes": 271,
+      "original_git_mode": "100644",
+      "archive_git_mode": "100644",
+      "license_path": "LICENSE.txt"
+    },
+    {
+      "original_relative_path": "Cargo.toml",
+      "archive_relative_path": "Cargo.toml",
+      "source_revision": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+      "git_blob_sha1": "dc4335ff674afd40dbb5247e6eb2c379111013e0",
+      "sha256": "22cbaace1f19c9aa4a0839166a3459266efda3844ca826ef6a16735c7448cef0",
+      "bytes": 519,
+      "original_git_mode": "100644",
+      "archive_git_mode": "100644",
+      "license_path": "LICENSE.txt"
+    },
+    {
+      "original_relative_path": "README.md",
+      "archive_relative_path": "README.md",
+      "source_revision": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+      "git_blob_sha1": "21e5464babc8cb21823eba1d8e3c14295f269a3f",
+      "sha256": "93e1a75b05cfb1aa507294ec35258d80c013a422bbd09192963c8deb9a838c63",
+      "bytes": 398,
+      "original_git_mode": "100644",
+      "archive_git_mode": "100644",
+      "license_path": "LICENSE.txt"
+    },
+    {
+      "original_relative_path": "repository-files.json",
+      "archive_relative_path": "repository-files.json",
+      "source_revision": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+      "git_blob_sha1": "3c72b8f1233174631d92c53b3fca442ee121681c",
+      "sha256": "a52c1c1530865609e26183da9f9b3cc37a7b62f23eb2853378714963b049fd67",
+      "bytes": 4311,
+      "original_git_mode": "100644",
+      "archive_git_mode": "100644",
+      "license_path": "LICENSE.txt"
+    },
+    {
+      "original_relative_path": "repository.json",
+      "archive_relative_path": "repository.json",
+      "source_revision": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+      "git_blob_sha1": "dc84c848ff0fb04000a10f43c9eb8b64e7b7dc70",
+      "sha256": "49c5edb1d0fb87b6e97f85419ca064d0a96673d5e52da1265ee776df954d10b2",
+      "bytes": 490,
+      "original_git_mode": "100644",
+      "archive_git_mode": "100644",
+      "license_path": "LICENSE.txt"
+    },
+    {
+      "original_relative_path": "LICENSE.txt",
+      "archive_relative_path": "LICENSE.txt",
+      "source_revision": "6d2f7a98df6963d84d191a2732a186905aa5fd80",
+      "git_blob_sha1": "f7389913f3fd1cb41276bb098a352b0e27e7e879",
+      "sha256": "77c458ccb6116400cf960f8951630bc3b8b34731b56ffbd736b95c2b78449104",
+      "bytes": 1851,
+      "original_git_mode": "100644",
+      "archive_git_mode": "100644",
+      "license_path": "LICENSE.txt"
+    }
+  ]
+}

@@ -25,3 +25,10 @@ The local handoff revision `549a47e0a3f4554099a573a67362bde5c7445c18` contains e
 ## Open questions
 
 OPEN_QUESTION: Verification: Historical source variants require independent reconciliation and target-bound execution in the next authorized development environment before any capability claim.
+
+## BP74 exported source snapshot
+
+The 2026-09-24 export candidate is an independent generated root commit referencing public parent source `93e4a9ebc1a05e2cbec78125a0186ca1b71d98d6`. Its identity and exact original tree are preserved by an ordinary merge of the unrelated public history. Older variants that differ from the current module source are retained as inactive research under `research/handoff/bp74-export-20260924/`, with original paths, blob identifiers, SHA-256 hashes and license provenance. Current source APIs, dependency pins and execution behavior remain active. Historical export metadata makes no new execution or device acceptance claim. Remote publication must be verified separately.
+
+- [Export snapshot handoff](../research/handoff/bp74-export-20260924/HANDOFF.md)
+- [Original tree and exact variant manifest](../research/handoff/bp74-export-20260924/manifest.json)
