@@ -1,0 +1,40 @@
+{
+  "schema": "NextCore.repository/2",
+  "name": "Nextcore-APLS",
+  "owner": "26x86",
+  "public": true,
+  "role": "nextcore-module",
+  "crate": "nextcore-apls",
+  "description": "AArch64 recovery orchestration and public guest interfaces",
+  "development": {
+    "branch": "codex/arm64e-memory-gpu",
+    "base_commit": "f4d640e362fbcf160994d833b330e16506de9110",
+    "updated_utc": "2026-09-08T15:29:56.927922+00:00",
+    "dependency_revisions": {
+      "https://github.com/26x86/Nextcore-GPU": "eaab9fcfded3a8ee298453397790f13edace5694"
+    },
+    "integration": "Git submodule with an immutable gitlink; workspace source patches for local development"
+  },
+  "release_provenance": {
+    "schema": "NextCore.repository/1",
+    "name": "Nextcore-APLS",
+    "owner": "26x86",
+    "public": true,
+    "role": "nextcore-module",
+    "crate": "nextcore-apls",
+    "description": "AArch64 recovery orchestration and public guest interfaces",
+    "source_path": "nextcore/crates/nextcore-apls",
+    "source_commit": "dcc90013109eac694ccbf997b1e44a7018480f78",
+    "depends_on": [
+      "26x86/Nextcore-GPU"
+    ],
+    "initial_tag": "NextCore-Nextcore-APLS-v0.1.0",
+    "generated_utc": "2026-09-08T06:40:16.873714+00:00",
+    "release_tag": "NextCore-Nextcore-APLS-v0.1.1",
+    "previous_head": "76a0b8c32f9fa5f4408cf8dc678bdea78905113b",
+    "dependency_tags": {
+      "26x86/Nextcore-GPU": "NextCore-Nextcore-GPU-v0.1.1"
+    },
+    "export_method": "immutable git objects applied to existing main; manifest dependency rewrite only"
+  }
+}

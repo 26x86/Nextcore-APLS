@@ -1,0 +1,23 @@
+# Final public source handoff for nextcore-apls
+
+## Current Status
+
+This module retains its independent GitHub repository and current main API. The final handoff preserves frozen historical public variants from an older local checkout. These unfinished variants are stored with their original module-relative paths under `research/handoff/legacy-uncommitted-20261001/`. They preserve authored public work and license notices for later review in another local development environment.
+
+The archive is reference material. Its Rust/C source, repository metadata and historical README files are not current implementation or execution evidence. Hash verification establishes exact source preservation only. No compiler, test, EFI, guest, macOS boot, Metal, or physical-device acceptance result is established by this handoff.
+
+## Target State
+
+Keep every available public revision in this module's own main ancestry and preserve each frozen public variant with SHA-256, Git blob identity, source revision, relative path, mode and license provenance. The module remains independently versioned; its history is not flattened into the parent repository. Future work starts from the public module main in a different local environment.
+
+The current active source, build configuration, API and top-level license remain unchanged by this archive. Review historical variants against the current API before selecting any future implementation change. Retire the scoped working branches and development checkouts only after publication and remote source coverage are independently verified.
+
+## Preservation record
+
+- [Archive scope and provenance](../research/handoff/legacy-uncommitted-20261001/HANDOFF.md)
+- [Exact source hash manifest](../research/handoff/legacy-uncommitted-20261001/manifest.json)
+- [Frozen license notices](../research/handoff/legacy-uncommitted-20261001/LICENSE.txt)
+
+## Open questions
+
+OPEN_QUESTION: Verification: Historical source variants require independent reconciliation and target-bound execution in the next authorized development environment before any capability claim.
